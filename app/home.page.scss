@@ -1,0 +1,87 @@
+@import "../css/scss/common/color";
+
+$toolBarHeight: 50px;
+
+@media only screen and (max-device-width: $mobileWidth) {
+  .search-bar {
+    width: 100%;
+    margin-top: 20px;
+  }
+  .markets {
+    width: 100%;
+  }
+  .search-bar input[type='textbox'] {
+    border-radius: 2px;
+  }
+}
+
+@media only screen and (min-device-width: $mobileWidth) {
+  .search-bar {
+    width: 450px;
+  }
+
+  .markets {
+    width: 200px;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+    border-right: 0;
+  }
+  .search-bar input[type='textbox'] {
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+  }
+}
+
+.tool-bar {
+  margin-top: 40px;
+  text-align: center;
+  width: 100%;
+}
+
+.search-bar {
+  display: inline-block;
+}
+
+.search-bar input[type='textbox'] {
+  width: 100%;
+  border: 1px solid #ccc;
+  height: $toolBarHeight;
+  box-sizing: border-box;
+  padding: 5px 10px;
+}
+
+.markets {
+  display: inline-block;
+
+}
+
+.markets select {
+  height: $toolBarHeight;
+  border: 1px solid #ccc;
+  width: 100%;
+  border-right: 0;
+  box-sizing: border-box;
+  padding: 5px 10px;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+  background: orange;
+  color: #fff;
+}
+
+.no-ticker {
+  width: 100%;
+  text-align: center;
+  border-radius: 4px;
+  margin-top: 40px;
+}
+
+.no-ticker p {
+  color: #94a3b0;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.footer {
+  height: 200px;
+}
+

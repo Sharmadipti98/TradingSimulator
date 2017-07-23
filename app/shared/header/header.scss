@@ -1,0 +1,109 @@
+@import "../../../css/scss/common/common";
+
+@media only screen and (max-device-width: $mobileWidth) {
+  .search-box input {
+    border: 1px solid #888;
+  }
+}
+@media only screen and (min-device-width: $mobileWidth) {
+  .search-box input {
+    border: 0;
+  }
+
+}
+
+/* Header start*/
+.header {
+  height: 450px;
+  box-shadow: 0 0 1px #aaa;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/images/header-bg.jpg") no-repeat 50% 50%;
+  background-size: cover;
+}
+
+.header-top {
+  height: 80px;
+  line-height: 80px;
+}
+
+.header-logo {
+  font-size: 32px;
+  color: #fff;
+  text-shadow: 0 1px 1px #777;
+}
+
+.header-menu li {
+  float: left;
+  margin: 0 10px;
+}
+
+.header-menu li a {
+  font-size: 16px;
+  color: #dedede;
+  text-decoration: none;
+  position: relative;
+}
+
+.header-social {
+  margin-left: 20px;
+}
+
+.header-social li {
+  float: left;
+  margin: 0 10px;
+}
+
+.header-social li:last-child {
+  margin-right: 0;
+}
+
+.header-social li a {
+  font-size: 30px;
+  color: #cecece;
+  transition: 0.5s color;
+}
+
+.header-social li a:hover {
+  color: #fff;
+}
+
+.header-bottom {
+  text-align: center;
+  padding-top: 100px;
+}
+
+.header-bottom-heading {
+  font-size: 35px;
+  text-transform: capitalize;
+  color: #fff;
+  text-shadow: 0 3px 3px #555;
+  letter-spacing: 0.8px;
+}
+
+.header-bottom-text {
+  margin-top: 20px;
+  font-size: 20px;
+  text-transform: capitalize;
+  letter-spacing: 0.8px;
+  color: #bbb;
+}
+
+.header-contact-us {
+  font-size: 20px;
+  padding: 20px;
+  display: inline-block;
+  margin-top: 50px;
+  color: #fff;
+  background: #5B7291;
+  border-radius: 10px;
+  transition: 0.6s color, background;
+  -webkit-transition: 0.6s background;
+  text-decoration: none;
+}
+
+.header-contact-us:hover {
+  color: #fff;
+  background: #6495ED;
+  text-decoration: none;
+}
+
+/* Header end*/

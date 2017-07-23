@@ -1,0 +1,15 @@
+# IDEs and editors
+.idea/*
+/.vscode
+.project
+.classpath
+*.launch
+.settings/
+
+*/node_modules/*
+/node_modules/*
+/jonu/admin/node_modules/*
+*/.idea/workspace.xml
+*/public/*
+/public/*
+/chevak/*
