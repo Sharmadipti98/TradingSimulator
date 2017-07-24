@@ -1,11 +1,13 @@
 import React from 'react';
 import style from './ticker.card.scss';
+import AppService from '../services/app.service.jsx';
 
 class TickerCard extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            price: '',
             risk1: 0,
             risk2: 0
         };
@@ -24,6 +26,31 @@ class TickerCard extends React.Component {
 
         this.calculateRisk1(this.props.ticker.tickerId, this.props.ticker.exchange);
         this.calculateRisk2(this.props.ticker.tickerId, this.props.ticker.exchange);
+
+        this.initPrice();
+
+        this.exchangeTypeIndex = {
+            'BSE': 1, // Open in column_name
+            'NSE': 4 // Last in column_name
+        }
+    }
+
+    initPrice() {
+        let exchange = this.props.ticker.exchange;
+        AppService.getPrice(exchange, this.props.ticker.tickerId)
+            .then(res => {
+                this.processPriceData(res.data, exchange);
+            })
+    }
+
+    processPriceData(data, exchange) {
+        let price = this.getPrice(data.dataset_data.data[0], exchange);
+        console.log(data.dataset_data.data, price, exchange, this.exchangeTypeIndex[exchange]);
+        this.setState({price: price});
+    }
+
+    getPrice(data, exchange) {
+        return data[this.exchangeTypeIndex[exchange]];
     }
 
     calculateRisk1(ticker, exchange) {
@@ -47,11 +74,15 @@ class TickerCard extends React.Component {
     render() {
         return (
             <tr>
-                <td>{this.props.ticker.exchange}</td>
-                <td>{this.props.ticker.tickerId}</td>
-                <td>{this.props.ticker.name}</td>
-                <td>{this.props.ticker.price}</td>
-                <td>
+                <td className="left-aligned">{this.props.ticker.exchange}</td>
+                <td className="left-aligned">{this.props.ticker.tickerId}</td>
+                <td className="left-aligned">{this.props.ticker.name}</td>
+                <td className='center-aligned'>{this.state.price === '' ?
+                    <img width="12" height="12" src="/images/spinner.gif"/>
+                    :
+                    this.state.price
+                }</td>
+                <td className='center-aligned'>
                     {
                         this.state.risk1 === 0 ?
                             <img width="12" height="12" src="/images/spinner.gif"/>
@@ -60,7 +91,7 @@ class TickerCard extends React.Component {
                                title={this.riskWarning[this.state.risk1]} style={this.riskBg[this.state.risk1]}></i>
                     }
                 </td>
-                <td>
+                <td className='center-aligned'>
                     {
                         this.state.risk2 === 0 ?
                             <img width="12" height="12" src="/images/spinner.gif"/>
@@ -69,7 +100,7 @@ class TickerCard extends React.Component {
                                title={this.riskWarning[this.state.risk2]} style={this.riskBg[this.state.risk2]}></i>
                     }
                 </td>
-                <td><i title="delete" onClick={this.deleteTicker.bind(this)} className="fa fa-times"
+                <td className="center-aligned"><i title="delete" onClick={this.deleteTicker.bind(this)} className="fa fa-times"
                        aria-hidden="true"></i></td>
             </tr>
         )

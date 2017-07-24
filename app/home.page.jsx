@@ -16,7 +16,7 @@ class HomePage extends React.Component {
             isSearching: false,
             exchange: 'BSE'
         };
-        this.loadTickers();
+        //this.loadTickers();
         this.searchTimeOutId = 0;
     }
 
@@ -56,15 +56,20 @@ class HomePage extends React.Component {
 
     onAdd(item, e) {
         this.setState({isSearching: false});
-        let tick = {
-            'exchange': item.EXCHANGE,
-            'tickerId': item.TICKER_ID,
-            'name': item.NAME,
-            'price': '',
-            'risk1': 0,
-            'risk2': 0
-        };
-        this.state.tickers.push(tick);
+        let duplicate = false;
+        this.state.tickers.forEach((ticker)=> {
+            if (ticker.exchange == item.EXCHANGE && ticker.tickerId == item.TICKER_ID) {
+                duplicate = true;
+            }
+        });
+        if (!duplicate) {
+            let tick = {
+                'exchange': item.EXCHANGE,
+                'tickerId': item.TICKER_ID,
+                'name': item.NAME
+            };
+            this.state.tickers.push(tick);
+        }
     }
 
     handleSearchChange(e) {
@@ -101,7 +106,6 @@ class HomePage extends React.Component {
     }
 
     onExchange(e) {
-        alert(e.target.value);
         this.setState({exchange: e.target.value, searchInput: '', searchResult: []});
         clearTimeout(this.searchTimeOutId);
     }

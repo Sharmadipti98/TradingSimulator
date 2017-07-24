@@ -4,7 +4,8 @@ import BaseService from './base.serivce.jsx';
 class GadgetsService {
 
     constructor() {
-
+        this.quadlBase = `https://www.quandl.com/api/v3/datasets`;
+        this.apiKey = `&api_key=C-XysK9CA5RzYN7f2oMk`;
     }
 
     getSearchItems(companyName, exchange) {
@@ -14,6 +15,11 @@ class GadgetsService {
             exchange: exchange
         };
         return BaseService.getDataWithQueryParams(url, queryParams);
+    }
+
+    getPrice(exchange, tickerId) {
+        let url = `${this.quadlBase}/${exchange}/${tickerId}/data.json?limit=1${this.apiKey}`;
+        return BaseService.getData(url);
     }
 }
 

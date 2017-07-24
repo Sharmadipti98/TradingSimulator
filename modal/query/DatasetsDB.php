@@ -23,7 +23,7 @@ class DataSetsDB
     {
         $query = "SELECT * FROM " . DataSetsTable::$TABLE_NAME . " WHERE "
             . DataSetsTable::$NAME . " LIKE '%$companyName%' AND "
-            . DataSetsTable::$EXCHANGE . "='$exchange'" . " ORDER BY id DESC LIMIT $limit";
+            . DataSetsTable::$EXCHANGE . "='$exchange'" . " ORDER BY id ASC LIMIT $limit";
 
         return $this->sqlQuery->_fetchWithoutPreparedStatement($query);
     }

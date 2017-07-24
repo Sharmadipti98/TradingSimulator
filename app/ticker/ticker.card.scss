@@ -17,8 +17,7 @@
 .ticker-table tr th {
   border-top: 1px solid rgb(236, 236, 241);
   border-bottom: 1px solid rgb(236, 236, 241);
-  padding: 7px 0;
-  text-align: left;
+  padding: 7px 0 7px 5px;
   background: rgb(236, 236, 241);
   color: #333;
 
@@ -28,27 +27,27 @@
   padding-left: 5px;
 }
 
-.ticker-table tr th:last-child {
-  text-align: center;
-}
-
 .ticker-table tr td {
   border-top: 1px solid rgb(236, 236, 241);
   border-bottom: 1px solid rgb(236, 236, 241);
-  padding: 15px 0 15px 0;
-  text-align: left;
+  padding: 15px 0 15px 5px;
   color: #333;
   font-size: 13px;
 }
 
-.ticker-table tr td i{
+.ticker-table tr td i {
   cursor: pointer;
   font-size: 14px;
 }
+
 .ticker-table tr td:first-child {
   padding-left: 10px;
 }
 
-.ticker-table tr td:last-child {
+.left-aligned {
+  text-align: left;
+}
+
+.center-aligned {
   text-align: center;
 }

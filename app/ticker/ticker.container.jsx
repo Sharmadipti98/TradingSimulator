@@ -19,13 +19,13 @@ class TickerContainer extends React.Component {
                     <div className="ticker-table">
                         <table>
                             <tr>
-                                <th>Bourse</th>
-                                <th>Ticker</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>Risk #1</th>
-                                <th>Risk #2</th>
-                                <th>Action</th>
+                                <th className="left-aligned">Bourse</th>
+                                <th className="left-aligned">Ticker</th>
+                                <th className="left-aligned">Name</th>
+                                <th className="center-aligned">Price</th>
+                                <th className="center-aligned">Risk #1</th>
+                                <th className="center-aligned">Risk #2</th>
+                                <th className="center-aligned">Action</th>
                             </tr>
                             {
                                 this.props.tickers.map(ticker =>
