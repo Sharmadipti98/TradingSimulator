@@ -69,7 +69,8 @@ class TickerCard extends React.Component {
                                title={this.riskWarning[this.state.risk2]} style={this.riskBg[this.state.risk2]}></i>
                     }
                 </td>
-                <td><i onClick={this.deleteTicker.bind(this)} className="fa fa-times" aria-hidden="true"></i></td>
+                <td><i title="delete" onClick={this.deleteTicker.bind(this)} className="fa fa-times"
+                       aria-hidden="true"></i></td>
             </tr>
         )
     }

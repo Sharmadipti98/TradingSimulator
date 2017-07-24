@@ -37,9 +37,9 @@ class Header extends React.Component {
                 </div>
 
                 <div className="header-bottom p-font page-width">
-                    <p className="header-bottom-heading" data-aos="fade-right">Measure Stock Market Risk</p>
+                    <p className="header-bottom-heading slide-from-left">Measure Stock Market Risk</p>
 
-                    <p className="header-bottom-text" data-aos="fade-left">Stock tickers risk analysis tool, do your
+                    <p className="header-bottom-text slide-from-right">Stock tickers risk analysis tool, do your
                         investment with low risk.</p>
                 </div>
 

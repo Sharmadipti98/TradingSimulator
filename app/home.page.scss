@@ -66,6 +66,13 @@ $toolBarHeight: 50px;
   border-bottom-left-radius: 2px;
   background: orange;
   color: #fff;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: normal;
+}
+
+.markets select::-ms-expand {
+  display: none;
 }
 
 .no-ticker {
@@ -85,3 +92,27 @@ $toolBarHeight: 50px;
   height: 200px;
 }
 
+.risk-description {
+  float: right;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.risk-description li {
+  display: inline-block;
+  margin-left: 20px;
+}
+
+.risk-description span {
+  margin-left: 10px;
+
+}
+.low-risk-desc{
+  color: #90EE90;
+}
+.medium-risk-desc{
+  color: #FFFF33;
+}
+.high-risk-desc{
+  color: #B22222;
+}

@@ -94,9 +94,29 @@ class HomePage extends React.Component {
                                 <p>Create New Ticker</p>
                             </div>
                             :
-                            <TickerContainer
-                                deleteTicker={this.deleteTicker.bind(this)}
-                                tickers={this.state.tickers}></TickerContainer>
+                            <div>
+                                <TickerContainer
+                                    deleteTicker={this.deleteTicker.bind(this)}
+                                    tickers={this.state.tickers}></TickerContainer>
+
+                                <div className="risk-description cf">
+                                    <ul>
+                                        <li><i className="fa fa-circle low-risk-desc" aria-hidden="true"
+                                               title="Low Risk"></i>
+                                            <span>Low Risk</span>
+                                        </li>
+
+                                        <li><i className="fa fa-circle medium-risk-desc" aria-hidden="true"
+                                               title="Medium Risk"></i>
+                                            <span>Medium Risk</span>
+                                        </li>
+                                        <li><i className="fa fa-circle high-risk-desc" aria-hidden="true"
+                                               title="High Risk"></i>
+                                            <span>High Risk</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                     }
                 </div>
                 <div className="footer"></div>
