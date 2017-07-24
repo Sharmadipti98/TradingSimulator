@@ -10,9 +10,14 @@ class HomePage extends React.Component {
         super(props);
 
         this.state = {
-            tickers: []
+            tickers: [],
+            searchInput: '',
+            searchResult: [],
+            isSearching: false,
+            exchange: 'BSE'
         };
         this.loadTickers();
+        this.searchTimeOutId = 0;
     }
 
     loadTickers() {
@@ -47,16 +52,38 @@ class HomePage extends React.Component {
     }
 
     componentDidMount() {
-        AppService.getAllApps()
-            .then(resp => {
-                this.setState({allApps: resp.data, pageLoading: false});
-            });
     }
 
-    onAdd(e) {
-        e.preventDefault();
-        alert("i ma in")
+    onAdd(item, e) {
+        this.setState({isSearching: false});
+        let tick = {
+            'exchange': item.EXCHANGE,
+            'tickerId': item.TICKER_ID,
+            'name': item.NAME,
+            'price': '',
+            'risk1': 0,
+            'risk2': 0
+        };
+        this.state.tickers.push(tick);
+    }
 
+    handleSearchChange(e) {
+        let oldVal = this.state.searchInput;
+        this.setState({isSearching: true, searchInput: e.target.value}, function () {
+            if (this.state.searchInput != oldVal || this.state.searchResult.length === 0) {
+                clearTimeout(this.searchTimeOutId);
+                this.searchTimeOutId = setTimeout(() => {
+                    this._doSearch(this.state.searchInput);
+                }, 300);
+            }
+        }.bind(this));
+    }
+
+    _doSearch(searchInput) {
+        AppService.getSearchItems(searchInput, this.state.exchange)
+            .then(res => {
+                this.setState({searchResult: res.data})
+            })
     }
 
     deleteTicker(e, tickerId) {
@@ -66,7 +93,25 @@ class HomePage extends React.Component {
         this.setState({tickers: tickrs});
     }
 
+    disableIsSearching() {
+        setTimeout(()=> {
+            this.setState({isSearching: false});
+            clearTimeout(this.searchTimeOutId);
+        }, 200);
+    }
+
+    onExchange(e) {
+        alert(e.target.value);
+        this.setState({exchange: e.target.value, searchInput: '', searchResult: []});
+        clearTimeout(this.searchTimeOutId);
+    }
+
     render() {
+        let showSearchResult = this.state.isSearching ? {
+            display: 'block'
+        } : {
+            display: 'none'
+        };
         return (
             <div>
                 <Header></Header>
@@ -74,15 +119,35 @@ class HomePage extends React.Component {
                 <div className="page-width">
                     <div className="tool-bar">
                         <div className="markets">
-                            <select>
+                            <select onChange={this.onExchange.bind(this)}>
                                 <option>BSE</option>
                                 <option>NSE</option>
                             </select>
                         </div>
                         <div className="search-bar">
-                            <form onSubmit={this.onAdd.bind(this)}>
-                                <input type="textbox" placeholder="Company Name"/>
-                            </form>
+                            <input
+                                onChange={this.handleSearchChange.bind(this)}
+                                onFocus={this.handleSearchChange.bind(this)}
+                                onBlur={this.disableIsSearching.bind(this)}
+                                type="textbox"
+                                placeholder="Company Name"
+                                value={this.state.searchInput}/>
+
+                            <div style={showSearchResult} className="header-search-bar-result">
+                                <ul>
+                                    {
+                                        this.state.searchResult.map(item =>
+                                                <li key={item.TICKER_ID}
+                                                    onClick={this.onAdd.bind(this, item)}>
+                                                    {item.NAME}
+                                                </li>
+                                        )
+                                    }
+
+
+                                </ul>
+                            </div>
+
                         </div>
 
                     </div>

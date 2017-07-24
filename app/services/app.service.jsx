@@ -7,19 +7,13 @@ class GadgetsService {
 
     }
 
-    getAllApps() {
-        let url = `${BaseService.baseUrl}/all-apps`;
-        return BaseService.getData(url);
-    }
-
-    getAppInfoByLink(appLink, age, gender) {
-        let url = `${BaseService.baseUrl}/app-by-link`;
-        let param = {
-            appLink: appLink,
-            age: age,
-            gender: gender
+    getSearchItems(companyName, exchange) {
+        let url = `${BaseService.baseUrl}/search`;
+        let queryParams = {
+            companyName: companyName,
+            exchange: exchange
         };
-        return BaseService.getDataWithQueryParams(url, param);
+        return BaseService.getDataWithQueryParams(url, queryParams);
     }
 }
 

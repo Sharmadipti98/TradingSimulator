@@ -16,7 +16,7 @@ function createConnection()
         $servername = "localhost";
         $username = "Admin";
         $password = "test1234";
-        $dbname = "fbapp";
+        $dbname = "stockin";
     }
 
     /// On localhost sometimes adding User to specific Database doesn't work. Go to Home page of PHPMYADMIN and then create new User

@@ -7,24 +7,17 @@ if(!isset($_GET['_url'])) {
 }
 $_url = $_GET['_url'];
 
-
-include_once (__DIR__) . "/../modal/apps/AppInfo.inc";
 include_once (__DIR__) . "/../modal/dbutils/dbConnection.php";
+include_once (__DIR__) . "/../modal/app/DataSets.inc";
 
 $conn = createConnection();
 
 
 switch ($_url) {
-    case "all-apps" :
-        $appInfo = new AppInfo($conn);
-        echo json_encode($appInfo->getAllApps());
-        break;
-    case "app-by-link" :
-        $appInfo = new AppInfo($conn);
-        if(isset($_GET['appLink'])) {
-            $age = isset($_GET['age']) ? $_GET['age'] : null;
-            $gender = isset($_GET['age']) ? $_GET['gender'] : null;
-            echo json_encode($appInfo->getAppInfoByLink($_GET['appLink'], $age, $gender));
+    case "search" :
+        $dataSets = new DataSets($conn);
+        if(isset($_GET['companyName']) && isset($_GET['exchange'])) {
+            echo json_encode($dataSets->getSearchItemsByLimit($_GET['companyName'], $_GET['exchange']));
         }
         break;
     default :

@@ -1,12 +1,8 @@
 import axios from 'axios';
 class BaseService {
     constructor() {
-        this.baseUrl = "/chevak/api";
-        this.fullHostName = "http://www.gadgetclues.com";
-    }
-
-    getQueryParam() {
-        return `_t=${RW_BCC_KEY}&_u=${UID}&_c=${visitorCountry}`;
+        this.baseUrl = "/api";
+        this.fullHostName = "http://www.netpract.com";
     }
 
     getData(url) {
