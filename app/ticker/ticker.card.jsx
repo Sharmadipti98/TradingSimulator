@@ -40,11 +40,6 @@ class TickerCard extends React.Component {
             .then(res => {
                 this.processStockData(res.data, exchange);
             });
-
-        AppService.getMonthlyPrice(exchange, tickerId, this.noOfDaysRisk2)
-            .then(res => {
-                this.calculateRisk2(res.data, exchange);
-            });
     }
 
     processStockData(data, exchange) {
@@ -66,17 +61,24 @@ class TickerCard extends React.Component {
 
     calculateRisk(historicalData, exchange) {
         try {
+            let openIndex = 1;
             let lowIndex = 3;
             let highIndex = 2;
             let risk1Low = historicalData[0][lowIndex];
             let risk1High = historicalData[0][highIndex];
+            let monthData = [];
 
+            let i = 0;
             historicalData.forEach((data) => {
                 risk1Low = data[lowIndex] < risk1Low ? data[lowIndex] : risk1Low;
                 risk1High = data[highIndex] > risk1High ? data[highIndex] : risk1High;
+                if (i++ < this.noOfDaysRisk2) {
+                    monthData.push(data[openIndex]);
+                }
             });
 
             this.calculateRisk1(risk1Low, risk1High);
+            this.calculateRisk2(monthData, risk1High);
         } catch (e) {
             // failed to calculate risk factors
         }
@@ -95,9 +97,7 @@ class TickerCard extends React.Component {
      * @param data
      * @param exchange
      */
-    calculateRisk2(data, exchange) {
-        let highIndex = 1;
-
+    calculateRisk2(monthlyData, exchange) {
         let sumOfXSquare = 0;
         let X = [];
         let n = this.noOfDaysRisk2;
@@ -110,10 +110,9 @@ class TickerCard extends React.Component {
         let XY = [];
         let XYSum = 0;
 
-        let monthlyData = data.dataset_data.data;
         monthlyData.reverse();
         monthlyData.forEach((entry, index) => {
-            XY[index] = entry[highIndex] * X[index];
+            XY[index] = entry * X[index];
             XYSum += XY[index];
         });
 
@@ -130,7 +129,7 @@ class TickerCard extends React.Component {
 
     render() {
         return (
-            <tr>
+            <tr className="slide-from-top">
                 <td className="left-aligned">{this.props.ticker.exchange}</td>
                 <td className="left-aligned">{this.props.ticker.tickerId}</td>
                 <td className="left-aligned">{this.props.ticker.name}</td>

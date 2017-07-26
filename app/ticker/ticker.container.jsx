@@ -29,9 +29,10 @@ class TickerContainer extends React.Component {
                             </tr>
                             {
                                 this.props.tickers.map(ticker =>
-                                        <TickerCard ticker={ticker}
-                                                    key={ticker.ticker}
-                                                    deleteTicker={this.props.deleteTicker}
+                                        <TickerCard
+                                            ticker={ticker}
+                                            key={ticker.ticker}
+                                            deleteTicker={this.props.deleteTicker}
                                             ></TickerCard>
                                 )
                             }

@@ -1,0 +1,21 @@
+.my-toasty {
+  width: 100%;
+  position: fixed;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  top: 30px;
+}
+
+.my-tosty-content {
+  padding: 15px 30px;
+  border-radius: 4px;
+  color: #fff;
+  font-family: "Monaco", 'Signika', sans-serif;
+  box-sizing: border-box;
+  box-shadow: 0 0 3px #999;
+}
+
+.my-tosty-content {
+  background: #ff7f7f;
+}

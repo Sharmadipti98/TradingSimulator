@@ -104,14 +104,23 @@ $toolBarHeight: 50px;
   margin-top: 20px;
 }
 
+.risk-description ul {
+  text-align: right;
+}
+
 .risk-description li {
   display: inline-block;
+  margin-right: 0;
   margin-left: 20px;
 }
 
 .risk-description span {
   margin-left: 10px;
 
+}
+
+.risk-description p {
+  margin-top: 20px;
 }
 
 .low-risk-desc {

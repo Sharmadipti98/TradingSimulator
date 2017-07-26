@@ -2,8 +2,9 @@ import React from 'react';
 import {render} from 'react-dom';
 import AppService from './services/app.service.jsx';
 import Header from './shared/header/header.jsx';
-import style from './home.page.scss';
+import './home.page.scss';
 import TickerContainer from './ticker/ticker.container.jsx';
+import MyToaster from './shared/toasty/toasty.jsx';
 
 class HomePage extends React.Component {
     constructor(props) {
@@ -87,6 +88,7 @@ class HomePage extends React.Component {
         return (
             <div>
                 <Header></Header>
+                <MyToaster message="Entry exist!"></MyToaster>
 
                 <div className="page-width">
                     <div className="tool-bar">
@@ -102,7 +104,7 @@ class HomePage extends React.Component {
                                 onFocus={this.handleSearchChange.bind(this)}
                                 onBlur={this.disableIsSearching.bind(this)}
                                 type="textbox"
-                                placeholder="Company Name"
+                                placeholder="Search by Ticker or Company Name"
                                 value={this.state.searchInput}/>
 
                             <div style={showSearchResult} className="header-search-bar-result">
@@ -115,8 +117,6 @@ class HomePage extends React.Component {
                                                 </li>
                                         )
                                     }
-
-
                                 </ul>
                             </div>
 
@@ -152,6 +152,12 @@ class HomePage extends React.Component {
                                             <span>High Risk</span>
                                         </li>
                                     </ul>
+
+                                    <p>Risk #1 Calculated based upon fluctuation in last 1 year with respect to high and
+                                        low price of share.</p>
+
+                                    <p>Risk #2 Calculated based upon trend of last 1 month data.</p>
+
                                 </div>
                             </div>
                     }
