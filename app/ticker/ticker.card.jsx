@@ -86,8 +86,9 @@ class TickerCard extends React.Component {
 
 
     calculateRisk1(risk1Low, risk1High) {
+        console.log(risk1Low, risk1High);
         let diff = risk1High - risk1Low;
-        let risk1 = (diff >= risk1Low) ? 3 : (diff > risk1Low / 5) ? 2 : 1;
+        let risk1 = (diff >= risk1Low) ? 3 : (diff > (risk1Low / 20)) ? 2 : 1; // 100%, 5%
         this.setState({risk1: risk1});
     }
 
