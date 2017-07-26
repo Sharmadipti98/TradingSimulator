@@ -16,39 +16,7 @@ class HomePage extends React.Component {
             isSearching: false,
             exchange: 'BSE'
         };
-        //this.loadTickers();
         this.searchTimeOutId = 0;
-    }
-
-    loadTickers() {
-        let obj = {
-            'exchange': 'BSE',
-            'tickerId': 'ORAC',
-            'name': 'Oracle',
-            'price': '$20',
-            'risk1': 1,
-            'risk2': 3
-        };
-
-        let obj2 = {
-            'exchange': 'BSE',
-            'tickerId': 'GOOG',
-            'name': 'Google',
-            'price': '$20',
-            'risk1': 3,
-            'risk2': 3
-        };
-        let obj3 = {
-            'exchange': 'BSE',
-            'tickerId': 'MRSFT',
-            'name': 'Microsoft',
-            'price': '$20',
-            'risk1': 1,
-            'risk2': 1
-        };
-        this.state.tickers.push(obj);
-        this.state.tickers.push(obj2);
-        this.state.tickers.push(obj3);
     }
 
     componentDidMount() {

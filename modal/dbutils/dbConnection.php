@@ -8,10 +8,10 @@ function createConnection()
 
 
     if (isProd()) {
-        $servername = "localhost";
-        $username = "gadgerpo_admin";
-        $password = "*OSNTWSy#Ikn";
-        $dbname = "gadgerpo_gizmos";
+        $servername = "mysql.hostinger.in";
+        $username = "u350336948_netpr";
+        $password = "7yseE6pYXkPZ";
+        $dbname = "u350336948_netpr";
     } else {
         $servername = "localhost";
         $username = "Admin";

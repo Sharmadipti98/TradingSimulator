@@ -17,8 +17,13 @@ class GadgetsService {
         return BaseService.getDataWithQueryParams(url, queryParams);
     }
 
-    getPrice(exchange, tickerId) {
-        let url = `${this.quadlBase}/${exchange}/${tickerId}/data.json?limit=1${this.apiKey}`;
+    getPrice(exchange, tickerId, noOfDays) {
+        let url = `${this.quadlBase}/${exchange}/${tickerId}/data.json?limit=${noOfDays}${this.apiKey}`;
+        return BaseService.getData(url);
+    }
+
+    getMonthlyPrice(exchange, tickerId, noOfMonths) {
+        let url = `${this.quadlBase}/${exchange}/${tickerId}/data.json?limit=${noOfMonths}${this.apiKey}`;
         return BaseService.getData(url);
     }
 }

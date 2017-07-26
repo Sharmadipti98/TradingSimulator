@@ -7,7 +7,6 @@ class SocialShareService {
     }
 
     shareOnFacebook(title, description, targetUrl, imageUrl) {
-        console.log(title, description, targetUrl, imageUrl);
         FB.ui({
             method: 'share',
             title: title,

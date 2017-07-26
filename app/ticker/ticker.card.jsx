@@ -24,47 +24,104 @@ class TickerCard extends React.Component {
             3: "High Risk"
         };
 
-        this.calculateRisk1(this.props.ticker.tickerId, this.props.ticker.exchange);
-        this.calculateRisk2(this.props.ticker.tickerId, this.props.ticker.exchange);
-
-        this.initPrice();
-
         this.exchangeTypeIndex = {
             'BSE': 1, // Open in column_name
             'NSE': 4 // Last in column_name
+        };
+
+        this.noOfDaysInYear = 261;
+        this.noOfDaysRisk2 = 23; // make it odd always
+
+        this.getStockData(this.props.ticker.tickerId, this.props.ticker.exchange);
+    }
+
+    getStockData(tickerId, exchange) {
+        AppService.getPrice(exchange, tickerId, this.noOfDaysInYear)
+            .then(res => {
+                this.processStockData(res.data, exchange);
+            });
+
+        AppService.getMonthlyPrice(exchange, tickerId, this.noOfDaysRisk2)
+            .then(res => {
+                this.calculateRisk2(res.data, exchange);
+            });
+    }
+
+    processStockData(data, exchange) {
+        let historicalData = data.dataset_data.data;
+        if (historicalData) {
+            this.processPriceData(historicalData[0], exchange);
+            this.calculateRisk(historicalData, exchange);
         }
     }
 
-    initPrice() {
-        let exchange = this.props.ticker.exchange;
-        AppService.getPrice(exchange, this.props.ticker.tickerId)
-            .then(res => {
-                this.processPriceData(res.data, exchange);
-            })
-    }
-
     processPriceData(data, exchange) {
-        let price = this.getPrice(data.dataset_data.data[0], exchange);
-        console.log(data.dataset_data.data, price, exchange, this.exchangeTypeIndex[exchange]);
-        this.setState({price: price});
+        try {
+            let price = data[this.exchangeTypeIndex[exchange]];
+            this.setState({price: price});
+        } catch (e) {
+            // Could not load price data
+        }
     }
 
-    getPrice(data, exchange) {
-        return data[this.exchangeTypeIndex[exchange]];
+    calculateRisk(historicalData, exchange) {
+        try {
+            let lowIndex = 3;
+            let highIndex = 2;
+            let risk1Low = historicalData[0][lowIndex];
+            let risk1High = historicalData[0][highIndex];
+
+            historicalData.forEach((data) => {
+                risk1Low = data[lowIndex] < risk1Low ? data[lowIndex] : risk1Low;
+                risk1High = data[highIndex] > risk1High ? data[highIndex] : risk1High;
+            });
+
+            this.calculateRisk1(risk1Low, risk1High);
+        } catch (e) {
+            // failed to calculate risk factors
+        }
     }
 
-    calculateRisk1(ticker, exchange) {
-        setTimeout(()=> {
-            let num = Math.floor(Math.random() * (4 - 1) + 1);
-            this.setState({risk1: num});
-        }, 1400);
+
+    calculateRisk1(risk1Low, risk1High) {
+        let diff = risk1High - risk1Low;
+        let risk1 = (diff >= risk1Low) ? 3 : (diff > risk1Low / 5) ? 2 : 1;
+        this.setState({risk1: risk1});
     }
 
-    calculateRisk2(ticker, exchange) {
-        setTimeout(()=> {
-            let num = Math.floor(Math.random() * (4 - 1) + 1);
-            this.setState({risk2: num});
-        }, 1400);
+
+    /**
+     * This method calculate risk no 2 using "Straight Line Trend" of "Least Square method"
+     * @param data
+     * @param exchange
+     */
+    calculateRisk2(data, exchange) {
+        let highIndex = 1;
+
+        let sumOfXSquare = 0;
+        let X = [];
+        let n = this.noOfDaysRisk2;
+        let i = 0 - Math.floor(this.noOfDaysRisk2 / 2);
+        while (n-- > 0) {
+            sumOfXSquare += i * i;
+            X.push(i++);
+        }
+
+        let XY = [];
+        let XYSum = 0;
+
+        let monthlyData = data.dataset_data.data;
+        monthlyData.reverse();
+        monthlyData.forEach((entry, index) => {
+            XY[index] = entry[highIndex] * X[index];
+            XYSum += XY[index];
+        });
+
+        let b = XYSum / sumOfXSquare;  /// b represent slope of the line
+
+        // If b is > 2 say green > 0 Yellow < 0 red
+        let risk2 = (b > 2) ? 1 : (b > 0) ? 2 : 3;
+        this.setState({risk2: risk2});
     }
 
     deleteTicker(e) {
@@ -100,8 +157,9 @@ class TickerCard extends React.Component {
                                title={this.riskWarning[this.state.risk2]} style={this.riskBg[this.state.risk2]}></i>
                     }
                 </td>
-                <td className="center-aligned"><i title="delete" onClick={this.deleteTicker.bind(this)} className="fa fa-times"
-                       aria-hidden="true"></i></td>
+                <td className="center-aligned"><i title="delete" onClick={this.deleteTicker.bind(this)}
+                                                  className="fa fa-times"
+                                                  aria-hidden="true"></i></td>
             </tr>
         )
     }
