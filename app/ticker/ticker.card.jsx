@@ -61,7 +61,7 @@ class TickerCard extends React.Component {
 
     calculateRisk(historicalData, exchange) {
         try {
-            let openIndex = 1;
+            let lastIndex = 4;
             let lowIndex = 3;
             let highIndex = 2;
             let risk1Low = historicalData[0][lowIndex];
@@ -73,7 +73,7 @@ class TickerCard extends React.Component {
                 risk1Low = data[lowIndex] < risk1Low ? data[lowIndex] : risk1Low;
                 risk1High = data[highIndex] > risk1High ? data[highIndex] : risk1High;
                 if (i++ < this.noOfDaysRisk2) {
-                    monthData.push(data[openIndex]);
+                    monthData.push(data[lastIndex]);
                 }
             });
 

@@ -31,10 +31,6 @@ $contextPath = getContextPath();
     <script async defer src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
     <script src="https://cdn.rawgit.com/michalsnik/aos/2.1.1/dist/aos.js"></script>
 
-    <script>
-        var appContextPath = "/chevak";
-    </script>
-
 </head>
 
 <body style="position:relative;background:#fff;font-family: Lato,sans-serif;">

@@ -88,7 +88,6 @@ class HomePage extends React.Component {
         return (
             <div>
                 <Header></Header>
-                <MyToaster message="Entry exist!"></MyToaster>
 
                 <div className="page-width">
                     <div className="tool-bar">
