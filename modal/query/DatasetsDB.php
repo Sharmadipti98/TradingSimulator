@@ -22,9 +22,9 @@ class DataSetsDB
     function getSearchItemsByLimit($companyName, $limit, $exchange)
     {
         $query = "SELECT * FROM " . DataSetsTable::$TABLE_NAME . " WHERE "
+            . DataSetsTable::$TICKER_ID . " LIKE '%$companyName%' OR "
             . DataSetsTable::$NAME . " LIKE '%$companyName%' AND "
             . DataSetsTable::$EXCHANGE . "='$exchange'" . " ORDER BY id ASC LIMIT $limit";
-
         return $this->sqlQuery->_fetchWithoutPreparedStatement($query);
     }
 }
