@@ -152,10 +152,10 @@ class HomePage extends React.Component {
                                         </li>
                                     </ul>
 
-                                    <p>Risk #1 Calculated based upon fluctuation in last 1 year with respect to high and
-                                        low price of share.</p>
+                                    <p>Risk #1 Calculated based on fluctuation in last 1 year with respect to the high
+                                        and low share price.</p>
 
-                                    <p>Risk #2 Calculated based upon trend of last 1 month data.</p>
+                                    <p>Risk #2 Calculated based on the trend in last 1 month of data.</p>
 
                                 </div>
                             </div>
